@@ -1,5 +1,6 @@
 import CompanyCard from "./company-card";
-import { Button } from "@tremor/react";
+import { Button, Card } from "@tremor/react";
+import Link from "next/link";
 
 const DashboardCompanyList = () => {
   const companies = [
@@ -15,9 +16,9 @@ const DashboardCompanyList = () => {
     },
   ];
   return (
-    <div className="mx-7 mt-6 max-w-xl rounded-lg border border-gray-200 p-5 shadow-lg">
-      <h1 className="text-xl font-medium">Soma Top Unicorn Breakouts</h1>
-      <div className="mt-5">
+    <Card className="mt-6 rounded shadow-lg">
+      <h1 className="p-5 text-xl font-medium">Soma Top Unicorn Breakouts</h1>
+      <div className="">
         {Array.from({ length: 10 }).map((_, index) => (
           <CompanyCard
             key={index}
@@ -31,11 +32,13 @@ const DashboardCompanyList = () => {
         ))}
       </div>
       <div className="mt-5">
-        <Button className="w-full rounded border border-gray-400 bg-white text-gray-500 hover:border-gray-500 hover:bg-gray-200">
-          View all
-        </Button>
+        <Link href="/companies">
+          <Button className="w-full rounded border border-gray-400 bg-white text-gray-500 hover:border-gray-500 hover:bg-gray-200">
+            View all
+          </Button>
+        </Link>
       </div>
-    </div>
+    </Card>
   );
 };
 

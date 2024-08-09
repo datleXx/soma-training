@@ -1,23 +1,16 @@
-import Header from "../home/header";
 import AdvertiseBand from "../home/advertise-band";
-import VerticalSideBar from "./vertical-side-bar";
-import UserInfoCard from "./user-info-card";
 import DashboardContent from "./dashboard-content";
+import FooterHomepage from "./footer-homepage";
 
 const Homepage = () => {
   return (
-    <div className="">
+    <div>
       <div>
-        <VerticalSideBar />
+        <AdvertiseBand />
+        <DashboardContent />
       </div>
-      <div className="relative">
-        <Header />
-        <div className="absolute left-28 right-0 top-[66px]">
-          <div>
-            <AdvertiseBand />
-            <DashboardContent />
-          </div>
-        </div>
+      <div className="my-6 max-w-7xl mx-auto ">
+        <FooterHomepage />
       </div>
     </div>
   );

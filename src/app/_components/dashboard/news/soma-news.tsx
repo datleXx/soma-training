@@ -1,4 +1,5 @@
 import SomaNewsCard from "./soma-news-card";
+import { Card } from "@tremor/react";
 
 const SomaNews = () => {
     const news = [
@@ -7,14 +8,14 @@ const SomaNews = () => {
         {title: "Y Combinators Investment Syndicate Map: Who backs the most YC startups?", year: "2024"},
     ]
     return (
-        <div className="mt-5 max-w-sm rounded-lg border border-gray-200 shadow-md mx-5 p-3">
+        <Card className="rounded shadow-xl p-2">
             <h1 className="text-lg font-medium p-3">Soma in the news</h1>
-            <div className="flex flex-col mt-4">
+            <div className="flex flex-col">
                 {news.map((item, index) => (
                     <SomaNewsCard key={index} title={item.title} year={item.year} />
                 ))}
             </div>
-        </div>
+        </Card>
     )
 }
 

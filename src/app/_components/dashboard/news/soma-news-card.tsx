@@ -8,7 +8,7 @@ interface SomaNewsCardProps {
 
 const SomaNewsCard = ({title, year}: SomaNewsCardProps) => {
   return (
-    <div className="mx-auto max-w-xs cursor-pointer p-2 hover:bg-gray-100 hover:text-violet-50">
+    <div className="mx-auto max-w-xs cursor-pointer p-1 hover:bg-gray-100">
       <div className="flex items-center gap-4 py-4">
         <span className="bg-violet-50 rounded p-2">
           <svg
@@ -27,7 +27,7 @@ const SomaNewsCard = ({title, year}: SomaNewsCardProps) => {
             />
           </svg>
         </span>
-        <h1 className="w-1/2 text-sm font-medium text-violet-900">{title}</h1>
+        <h1 className="w-1/2 text-sm font-medium text-violet-900 hover:text-violet-500">{title}</h1>
         <p className="text-sm text-gray-500">{year}</p>
       </div>
     </div>
