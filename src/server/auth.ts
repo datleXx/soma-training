@@ -74,8 +74,8 @@ export const authOptions: NextAuthOptions = {
       clientSecret: env.DISCORD_CLIENT_SECRET,
     }),
     GoogleProvider({
-      clientId: env.DEV_GOOGLE_CLIENT_ID,
-      clientSecret: env.DEV_GOOGLE_CLIENT_SECRET,
+      clientId: env.PROD_GOOGLE_CLIENT_ID ?? env.DEV_GOOGLE_CLIENT_ID,
+      clientSecret: env.PROD_GOOGLE_CLIENT_SECRET ?? env.DEV_GOOGLE_CLIENT_SECRET,
     })
     
     /**
