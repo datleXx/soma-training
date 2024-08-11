@@ -10,8 +10,8 @@ interface RecentNewsCardProps {
 
 const RecentNewsCard = ({image, title, year}: RecentNewsCardProps) => {
   return (
-    <div className="mx-auto max-w-xs cursor-pointer p-1 hover:bg-gray-100 ">
-      <div className="flex items-center gap-4 py-4">
+    <div className="mx-8 max-w-md cursor-pointer p-1 hover:bg-gray-100 ">
+      <div className="flex items-center justify-between py-4">
         <span className="bg-white rounded p-2">
           <Image src={image} alt="news" width={20} height={20} />
         </span>

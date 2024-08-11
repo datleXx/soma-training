@@ -4,14 +4,14 @@ import VerticalFilterBar from "./vertical-filter-bar";
 
 const CompaniesPage = () => {
   return (
-    <div className="flex relative">
+    <div className="flex p-2">
       {/* Left Div */}
-      <div className="h-full overflow-y-auto">
+      <div className="sticky top-[66px] left-0 h-full">
         <VerticalFilterBar />
       </div>
 
       {/* Right Div */}
-      <div className="h-full w-4/5 p-2 overflow-x-scroll">
+      <div className="h-full w-4/5 p-2 overflow-auto">
         <CompaniesSearchBar />
         <CompaniesTable />
       </div>

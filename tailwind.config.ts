@@ -186,7 +186,7 @@ const config = {
       },
     ],
   },
-  plugins: [require("tailwindcss-animate"),require('@headlessui/tailwindcss'), require('@tailwindcss/forms'),require('tailwind-scrollbar-hide')],
+  plugins: [require("tailwindcss-animate"),require('@headlessui/tailwindcss'), require('tailwind-scrollbar-hide')],
 } satisfies Config
 
 export default config

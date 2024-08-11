@@ -10,7 +10,7 @@ const SomaNews = () => {
     return (
         <Card className="rounded shadow-xl p-2">
             <h1 className="text-lg font-medium p-3">Soma in the news</h1>
-            <div className="flex flex-col">
+            <div className="">
                 {news.map((item, index) => (
                     <SomaNewsCard key={index} title={item.title} year={item.year} />
                 ))}

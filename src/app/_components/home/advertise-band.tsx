@@ -1,3 +1,4 @@
+
 const AdvertiseBand = () => {
     return (
         <div className="bg-violet-800 text-white w-full p-3">

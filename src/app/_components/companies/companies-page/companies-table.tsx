@@ -6,7 +6,6 @@ import {
   TableHeaderCell,
   TableBody,
   TableCell,
-  Badge,
 } from "@tremor/react";
 import Image from "next/image";
 const companies = [
@@ -25,7 +24,7 @@ const companies = [
 
 const CompaniesTable = () => {
   return (
-    <Card className="mt-6 rounded shadow-lg overflow-scroll">
+    <Card className="mt-6 rounded shadow-lg overflow-auto">
       <Table>
         <TableHead>
           <TableRow>
