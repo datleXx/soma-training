@@ -18,15 +18,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
-        <ClientWrapper>
-          <div className="flex">
-            <VerticalSideBar />
-            <div className="flex-1">
-              <Header />
-              <main className="ml-28 mt-[66px]">{children}</main>
+        <TRPCReactProvider>
+          <ClientWrapper>
+            <div className="flex">
+              <VerticalSideBar />
+              <div className="flex-1">
+                <Header />
+                <main className="ml-28 mt-[66px]">{children}</main>
+              </div>
             </div>
-          </div>
-        </ClientWrapper>
+          </ClientWrapper>
+        </TRPCReactProvider>
       </body>
     </html>
   );

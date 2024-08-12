@@ -73,3 +73,31 @@ model VerificationToken {
 
     @@unique([identifier, token])
 }
+
+model Company {
+    id         String    @id @unique
+    name       String
+    logoUrl    String?
+    slug       String
+    oneLiner   String
+    valuation  String
+    region     String?
+    websiteUrl String
+    sectors    Sectors[]
+    cursorId   String
+    cursor     Cursor @relation(fields: [cursorId], references: [id], onDelete: Cascade)
+}
+
+model Sectors {
+    id        String  @id @unique
+    companyId String
+    company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+    name      String
+    primary   Boolean
+}
+
+model Cursor {
+    id String @id @default(cuid())
+    companies Company[]
+    nextCursor String?
+}

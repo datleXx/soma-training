@@ -8,7 +8,8 @@ await import("./src/env.js");
 const config = {
     images: {
         domains: ['static.vecteezy.com', "storage.googleapis.com", "lh3.googleusercontent.com"]
-    }
+    }, 
+    staticPageGenerationTimeout: 1000,
 };
 
 export default config;

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { TableCell, TableRow } from "@tremor/react";
 
 interface CompanyCardProps {
   companyImg: string;
@@ -18,8 +19,8 @@ const CompanyCard = ({
   companyBase,
 }: CompanyCardProps) => {
   return (
-    <div className="flex items-center justify-between rounded-lg border-b border-gray-200 hover:bg-gray-50">
-      <div className="flex items-center gap-6 p-4">
+    <TableRow className="hover:bg-gray-50">
+      <TableCell className="flex gap-3 items-center">
         <Image
           className="rounded"
           src={companyImg}
@@ -27,20 +28,25 @@ const CompanyCard = ({
           width={60}
           height={60}
         />
-        <div className="w-1/2">
+        <div className="whitespace-normal">
           <h3 className="text-sm font-medium">{companyName}</h3>
           <p className="text-sm text-gray-400">{companyDescription}</p>
         </div>
-        <div className="text-sm text-gray-500 hidden lg:block">{companyBase}</div>
-        <div className="rounded-full bg-green-100 px-2 py-1 text-xs font-semibold text-green-800 hidden lg:block">
+      </TableCell>
+      <TableCell className="hidden text-sm text-gray-500 lg:table-cell">
+        {companyBase}
+      </TableCell>
+      <TableCell className="hidden lg:table-cell">
+        <div className="rounded-full bg-green-100 p-2 text-center text-xs font-semibold text-green-800">
           {companyType}
         </div>
-        <div className="rounded-full bg-green-100 px-2 py-1 text-xs font-semibold text-green-800 hidden lg:block">
+      </TableCell>
+      <TableCell>
+        <div className="rounded-full bg-green-100 p-2 text-center text-xs font-semibold text-green-800">
           {companyValuation}
         </div>
-      </div>
-      {/* <div className="flex items-center gap-4"></div> */}
-    </div>
+      </TableCell>
+    </TableRow>
   );
 };
 
