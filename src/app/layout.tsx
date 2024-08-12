@@ -5,6 +5,7 @@ import { TRPCReactProvider } from "~/trpc/react";
 import VerticalSideBar from "./_components/dashboard/vertical-side-bar";
 import Header from "./_components/home/header";
 import ClientWrapper from "./_components/utils/ClientWrapper";
+import {NextUIProvider} from "@nextui-org/react";
 
 export const metadata: Metadata = {
   title: "Soma Capital",
@@ -19,8 +20,9 @@ export default function RootLayout({
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
         <TRPCReactProvider>
-          <ClientWrapper>
-            <div className="flex">
+          <NextUIProvider>
+            <ClientWrapper>
+              <div className="flex">
               <VerticalSideBar />
               <div className="flex-1">
                 <Header />
@@ -28,6 +30,7 @@ export default function RootLayout({
               </div>
             </div>
           </ClientWrapper>
+          </NextUIProvider>
         </TRPCReactProvider>
       </body>
     </html>

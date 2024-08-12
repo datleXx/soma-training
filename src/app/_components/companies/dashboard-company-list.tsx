@@ -2,6 +2,7 @@ import CompanyCard from "./company-card";
 import { Button, Card, TableBody } from "@tremor/react";
 import Link from "next/link";
 import { api } from "~/trpc/react";
+import DashboardCompanyListSkeleton from "./skeleton/dashboard-companylist-skeleton";
 import {
   Table,
   TableCell,
@@ -23,23 +24,13 @@ const DashboardCompanyList = () => {
   //     companyBase: "US",
   //   },
   // ];
-  const { data: companies } = api.companies.fetchTenCompanies.useQuery();
+  const { data: companies, isLoading } = api.companies.fetchTenCompanies.useQuery();
   return (
     <Card className="mt-6 w-full rounded shadow-lg">
       <h1 className="p-5 text-xl font-medium">Soma Top Unicorn Breakouts</h1>
 
       <Table className="min-w-full">
-        {/* {Array.from({ length: 10 }).map((_, index) => (
-          <CompanyCard
-            key={index}
-            companyImg={companies[0]?.companyImg ?? ""}
-            companyName={companies[0]?.companyName ?? ""}
-            companyDescription={companies[0]?.companyDescription ?? ""}
-            companyValuation={companies[0]?.companyValuation ?? ""}
-            companyType={companies[0]?.companyType ?? ""}
-            companyBase={companies[0]?.companyBase ?? ""}
-          />
-        ))} */}
+        {isLoading ? <DashboardCompanyListSkeleton /> : (
         <TableBody className="">
           {companies?.map((company) => (
             <CompanyCard
@@ -53,6 +44,7 @@ const DashboardCompanyList = () => {
             />
           ))}
         </TableBody>
+        )}
       </Table>
       <div className="mt-5">
         <Link href="/companies">

@@ -34,14 +34,23 @@ export const companiesRouter = createTRPCRouter({
       console.log(e);
     }
   }),
-  fetchCompaniesWithInfiniteScroll: protectedProcedure.input(z.object({
-    cursor: z.string().nullish(),
-    limit: z.number().min(10).max(30)
+  fetchCompaniesWithCursor: protectedProcedure.input(z.object({
+    cursor: z.string().nullish()
   }))
   .query(async ({ ctx, input }) => {
-    const companies = await ctx.db.company.findMany({
-      take: input.limit + 1,
-      cursor: input.cursor ? { id: input.cursor } : undefined,
+    const batch = await ctx.db.cursor.findFirst({
+      where:{
+        id: input.cursor ?? ""
+      },
+      include: {
+        companies: true
+      },
     });
+
+    return {
+      batch,
+      nextCursor: batch?.nextCursor ?? "",
+      hasNextPage: batch?.nextCursor ? true : false,
+    };
   }),
 });

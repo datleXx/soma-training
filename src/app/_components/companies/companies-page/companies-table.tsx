@@ -11,24 +11,35 @@ import {
 } from "@tremor/react";
 import Image from "next/image";
 import { api } from "~/trpc/react";
-const companies = [
-  {
-    companyImg:
-      "https://storage.googleapis.com/pulumi-public-bucket-soma-78c41ee/95bd8ff0a6f17f5f8efacac24921105e79452b9f/Ramp-harmonic-logo",
-    companyName: "Ramp",
-    companyDescription:
-      "Corporate credit card that focuses on helping businesses eliminate overspend",
-    region: "US",
-    industry: "FinTech",
-    investmentDate: "4/8/2020",
-    valuation: "+5b",
-  },
-];
+import CompanyTableSkeleton from "../skeleton/company-table-skeleton";
+import { useEffect, useRef, useCallback } from "react";
+import { useInView } from "react-intersection-observer";
 
 const CompaniesTable = () => {
   const { data: companies, isLoading } =
     api.companies.fetchMultipleCompanies.useQuery();
-  console.log(companies);
+
+  const { data, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    api.companies.fetchCompaniesWithCursor.useInfiniteQuery(
+      { cursor: "" },
+      {
+        getNextPageParam: (lastPage) => lastPage?.nextCursor,
+      },
+    );
+
+  const { ref, inView } = useInView({
+    threshold: 0,
+  });
+
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, fetchNextPage, hasNextPage, isFetchingNextPage]);
+
+  useEffect(() => {
+    console.log("data: ", data);
+  }, [data]);
   return (
     <Card className="mt-6 overflow-auto rounded shadow-lg">
       <Table>
@@ -41,34 +52,47 @@ const CompaniesTable = () => {
             <TableHeaderCell>Valuation</TableHeaderCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          {companies?.map((company) => (
-            <TableRow key={company.id}>
-              <TableCell>
-                <div className="flex items-center space-x-4">
-                  <Image
-                    src={company.logoUrl ?? ""}
-                    alt={company.name ?? ""}
-                    width={40}
-                    height={40}
-                  />
-                  <div>
-                    <div className="font-semibold text-black">
-                      {company.name}
+        {isLoading ? (
+          <CompanyTableSkeleton />
+        ) : (
+          <TableBody>
+            {data?.pages
+              .flatMap((page) => page.batch?.companies)
+              .map((company) => (
+                <TableRow key={company?.id}>
+                  <TableCell>
+                    <div className="flex items-center space-x-4">
+                      <Image
+                        src={company?.logoUrl ?? ""}
+                        alt={company?.name ?? ""}
+                        width={40}
+                        height={40}
+                      />
+                      <div>
+                        <div className="font-semibold text-black">
+                          {company?.name}
+                        </div>
+                        <div className="whitespace-normal text-xs text-gray-500">
+                          {company?.oneLiner}
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-xs text-gray-500 whitespace-normal">
-                      {company.oneLiner}
-                    </div>
-                  </div>
-                </div>
-              </TableCell>
-              <TableCell>{company.region}</TableCell>
-              <TableCell>Technology</TableCell>
-              <TableCell>{company.valuation}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
+                  </TableCell>
+                  <TableCell>{company?.region}</TableCell>
+                  <TableCell>Technology</TableCell>
+                  <TableCell>{company?.valuation}</TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        )}
       </Table>
+      {hasNextPage && (
+        <div ref={ref}>
+          <Table>
+              <CompanyTableSkeleton />
+          </Table>
+        </div>
+      )}
     </Card>
   );
 };
