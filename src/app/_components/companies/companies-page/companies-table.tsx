@@ -16,10 +16,12 @@ import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { useSearchParams } from "next/navigation";
 import { CompanyDataType } from "~/helper/companiesHelper";
+import { useRouter } from "next/navigation";
 
 const CompaniesTable = () => {
   const searchParams = useSearchParams();
   const filters = JSON.parse(searchParams.get("filters") ?? "{}");
+  const router = useRouter();
 
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isLoading } =
     api.companies.fetchCompaniesWithCursor.useInfiniteQuery(
@@ -62,7 +64,7 @@ const CompaniesTable = () => {
             {data?.pages
               ?.flatMap((page) => page?.companiesList)
               .map((company) => (
-                <TableRow key={company?.id}>
+                <TableRow onClick={() => router.push(`/companies/${company?.slug}`)} key={company?.id} className="cursor-pointer hover:bg-gray-100">
                   <TableCell>
                     <div className="flex items-center space-x-4">
                       <Image

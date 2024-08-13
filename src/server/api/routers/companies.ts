@@ -105,4 +105,21 @@ export const companiesRouter = createTRPCRouter({
       });
       return companiesList;
     }),
+
+    fetchCompanyWithSlug: protectedProcedure
+    .input(
+      z.object({
+        slug: z.string(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const company = await ctx.db.company.findFirst({
+        where: { slug: input.slug },
+        include: {
+          sectors: true,
+        },
+      });
+
+      return company;
+    }),
 });
