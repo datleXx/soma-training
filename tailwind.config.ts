@@ -9,6 +9,7 @@ const config = {
     './src/**/*.{ts,tsx}',
     // Path to Tremor module
     './node_modules/@tremor/**/*.{js,ts,jsx,tsx}', 
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
 	],
   prefix: "",
   theme: {
@@ -186,7 +187,7 @@ const config = {
       },
     ],
   },
-  plugins: [require("tailwindcss-animate"),require('@headlessui/tailwindcss'), require('tailwind-scrollbar-hide')],
+  plugins: [require("tailwindcss-animate"),require('@headlessui/tailwindcss'), require('tailwind-scrollbar-hide'), require('@nextui-org/react')],
 } satisfies Config
 
 export default config

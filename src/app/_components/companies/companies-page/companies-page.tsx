@@ -6,7 +6,7 @@ const CompaniesPage = () => {
   return (
     <div className="flex p-2">
       {/* Left Div */}
-      <div className="sticky top-[66px] left-0 h-full">
+      <div className="sticky top-[66px] left-0 h-screen">
         <VerticalFilterBar />
       </div>
 

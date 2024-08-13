@@ -23,8 +23,8 @@ export interface FileType {
 
 export interface SectorType {
   id: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string | undefined;
+  updatedAt?: string | undefined;
   name: string;
   companyId: string;
   primary: boolean;
@@ -32,7 +32,19 @@ export interface SectorType {
 
 export interface CompanyDataType {
   id: string;
-  files: FileType[];
+  files?: FileType[];
+  sectors: SectorType[];
+  name: string;
+  logoUrl: string | null;
+  slug: string;
+  oneLiner: string | null;
+  valuation: string | null;
+  region: string | null;
+  website?: string;
+}
+
+export interface CompaniesInfiniteQueryResponse { //use for the infinite query
+  id: string;
   sectors: SectorType[];
   name: string;
   logoUrl: string;
@@ -40,8 +52,8 @@ export interface CompanyDataType {
   oneLiner: string;
   valuation: string;
   region: string;
-  website: string;
 }
+
 
 export function BaseUrl(input: string): string {
   return `https://somacap.com/api/trpc/companies.getCompaniesInfiniteQueryWithFilters?batch=1&input=${input}`;
@@ -123,8 +135,8 @@ export async function CompaniesUpsert(batches: BatchDataType[]) {
             name: company.name,
             logoUrl: company.logoUrl,
             slug: company.slug,
-            oneLiner: company.oneLiner,
-            valuation: company.valuation,
+            oneLiner: company.oneLiner ?? "N/A",
+            valuation: company.valuation ?? "N/A",
             region: company.region ? company.region : "N/A",
             websiteUrl: company.website,
             cursorId: batch.cursor ?? "undefined",
@@ -134,10 +146,10 @@ export async function CompaniesUpsert(batches: BatchDataType[]) {
             name: company.name,
             logoUrl: company.logoUrl,
             slug: company.slug,
-            oneLiner: company.oneLiner,
-            valuation: company.valuation,
+            oneLiner: company.oneLiner ?? "N/A",
+            valuation: company.valuation ?? "N/A",
             region: company.region ? company.region : "N/A",
-            websiteUrl: company.website,
+            websiteUrl: company.website ?? "N/A",
             cursorId: batch.cursor ?? "undefined",
           },
           where: {

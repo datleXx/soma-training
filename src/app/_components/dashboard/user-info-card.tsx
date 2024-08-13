@@ -1,14 +1,19 @@
 import Image from "next/image";
 import { Button, Card } from "@tremor/react";
+import { useSession } from "next-auth/react";
 
 const UserInfoCard = () => {
+  const { data: sessionData } = useSession();
   return (
     <Card className="mt-5 rounded shadow-lg">
       <div className="flex flex-col">
         <div className="flex items-center justify-between gap-5 border-b border-gray-200 p-4 pb-5">
           <div className="flex items-center gap-5">
             <Image
-              src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"
+              src={
+                sessionData?.user?.image ??
+                "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"
+              }
               alt="user"
               width={70}
               height={70}
@@ -16,13 +21,15 @@ const UserInfoCard = () => {
             />
             <div className="flex flex-col gap-1">
               <p className="text-sm font-medium text-gray-500">Welcome back,</p>
-              <p className="text-xl font-bold text-black">Dev Testing</p>
+              <p className="text-xl font-bold text-black">
+                {sessionData?.user?.name}
+              </p>
               <p className="text-sm text-gray-500">
                 To the Soma Capital Platform
               </p>
             </div>
           </div>
-          <div className="flex flex-col gap-3 ">
+          <div className="flex flex-col gap-3">
             <Button className="rounded border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-100">
               Discover a top company
             </Button>

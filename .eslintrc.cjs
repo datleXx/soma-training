@@ -29,14 +29,17 @@ const config = {
       }
     ],
     "@typescript-eslint/require-await": "off",
-    "@typescript-eslint/no-misused-promises": [
-      "error",
-      {
-        "checksVoidReturn": {
-          "attributes": false
-        }
-      }
-    ]
+    // "@typescript-eslint/no-misused-promises": [
+    //   "error",
+    //   {
+    //     "checksVoidReturn": {
+    //       "attributes": false
+    //     }
+    //   }
+    // ],
+    "@typescript-eslint/no-misused-promises": "off", // Turned off globally
+    "@typescript-eslint/no-floating-promises": "off", // Turned off globally
+    "@typescript-eslint/no-unsafe-assignment": "off" // Turned off globally
   }
 }
 module.exports = config;

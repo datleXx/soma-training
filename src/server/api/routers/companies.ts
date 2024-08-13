@@ -34,23 +34,75 @@ export const companiesRouter = createTRPCRouter({
       console.log(e);
     }
   }),
-  fetchCompaniesWithCursor: protectedProcedure.input(z.object({
-    cursor: z.string().nullish()
-  }))
-  .query(async ({ ctx, input }) => {
-    const batch = await ctx.db.cursor.findFirst({
-      where:{
-        id: input.cursor ?? ""
-      },
-      include: {
-        companies: true
-      },
-    });
+  fetchCompaniesWithCursor: protectedProcedure
+    .input(
+      z.object({
+        cursor: z.string().nullish(),
+        filters: z.object({
+          region: z.string(),
+          industry: z.string(),
+          valuation: z.string(),
+        }),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const whereClause = {
+        ...(input.filters.region !== "all" && { region: input.filters.region }),
+        ...(input.filters.valuation !== "all" && {
+          valuation: input.filters.valuation,
+        }),
+      };
 
-    return {
-      batch,
-      nextCursor: batch?.nextCursor ?? "",
-      hasNextPage: batch?.nextCursor ? true : false,
-    };
-  }),
+      const sectorWhereClause = {
+        ...(input.filters.industry !== "all" && {
+          sectors: {
+            some: {
+              name: input.filters.industry,
+            },
+          },
+        }),
+      };
+
+      const companiesList = await ctx.db.company.findMany({
+        take: 31,
+        cursor: input.cursor ? { id: input.cursor } : undefined,
+        where: {
+          ...whereClause,
+          ...sectorWhereClause,
+        },
+        include: {
+          sectors: true,
+        },
+      });
+      const lastItem = companiesList.pop();
+      
+      const nextCursor: typeof input.cursor | undefined = lastItem?.id;
+      if (companiesList.length < 30) {
+        return {
+          companiesList,
+          nextCursor: undefined,
+        };
+      }
+      return {
+        companiesList,
+        nextCursor,
+      };
+    }),
+
+  fetchCompaniesWithSearch: protectedProcedure
+    .input(
+      z.object({
+        search: z.string(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const companiesList = await ctx.db.company.findMany({
+        where: {
+          name: {
+            contains: input.search,
+          },
+        },
+      });
+      return companiesList;
+    }),
 });

@@ -12,34 +12,37 @@ import {
 import Image from "next/image";
 import { api } from "~/trpc/react";
 import CompanyTableSkeleton from "../skeleton/company-table-skeleton";
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
+import { useSearchParams } from "next/navigation";
+import { CompanyDataType } from "~/helper/companiesHelper";
 
 const CompaniesTable = () => {
-  const { data: companies, isLoading } =
-    api.companies.fetchMultipleCompanies.useQuery();
+  const searchParams = useSearchParams();
+  const filters = JSON.parse(searchParams.get("filters") ?? "{}");
 
-  const { data, hasNextPage, fetchNextPage, isFetchingNextPage } =
+  const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isLoading } =
     api.companies.fetchCompaniesWithCursor.useInfiniteQuery(
-      { cursor: "" },
+      { filters: filters },
       {
         getNextPageParam: (lastPage) => lastPage?.nextCursor,
       },
     );
 
   const { ref, inView } = useInView({
-    threshold: 0,
+    threshold: 0.5,
   });
 
   useEffect(() => {
-    if (inView && hasNextPage) {
-      fetchNextPage();
-    }
-  }, [inView, fetchNextPage, hasNextPage, isFetchingNextPage]);
+    console.log("Data", data);
+  }, [data]);
 
   useEffect(() => {
-    console.log("data: ", data);
-  }, [data]);
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage, isFetchingNextPage]);
+
   return (
     <Card className="mt-6 overflow-auto rounded shadow-lg">
       <Table>
@@ -57,7 +60,7 @@ const CompaniesTable = () => {
         ) : (
           <TableBody>
             {data?.pages
-              .flatMap((page) => page.batch?.companies)
+              ?.flatMap((page) => page?.companiesList)
               .map((company) => (
                 <TableRow key={company?.id}>
                   <TableCell>
@@ -79,20 +82,21 @@ const CompaniesTable = () => {
                     </div>
                   </TableCell>
                   <TableCell>{company?.region}</TableCell>
-                  <TableCell>Technology</TableCell>
+                  <TableCell>
+                    {company?.sectors?.map((sector) => sector?.name).join(", ")}
+                  </TableCell>
                   <TableCell>{company?.valuation}</TableCell>
                 </TableRow>
               ))}
           </TableBody>
         )}
       </Table>
-      {hasNextPage && (
-        <div ref={ref}>
-          <Table>
-              <CompanyTableSkeleton />
-          </Table>
-        </div>
+      {isFetchingNextPage && hasNextPage && (
+        <Table>
+          <CompanyTableSkeleton />
+        </Table>
       )}
+      <div ref={ref}></div>
     </Card>
   );
 };

@@ -3,7 +3,7 @@ import CompaniesPage from "../_components/companies/companies-page/companies-pag
 export default async function Companies() {
 
   return (
-    <div>
+    <div className="">
         <CompaniesPage />
     </div>
   );
