@@ -1,9 +1,27 @@
-import { Suspense } from "react";
+"use client";
+
+import { Suspense, useEffect } from "react";
 import CompaniesSearchBar from "./companies-search-bar";
 import CompaniesTable from "./companies-table";
 import VerticalFilterBar from "./vertical-filter-bar";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import WaitlistWelcomePage from "../../authentication/admin/waitlist-welcome-page";
 
 const CompaniesPage = () => {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  if (session?.user.role === "waitlist") {
+    return <WaitlistWelcomePage />;
+  }
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login");
+    }
+  }, [status, router]);
+  
   return (
     <div className="flex p-2">
       {/* Left Div */}

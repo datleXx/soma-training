@@ -4,6 +4,10 @@ import SingleCompanyHeadTab from "~/app/_components/companies/single-company/sin
 import SingleCompanyContentSection from "~/app/_components/companies/single-company/single-company-content-section";
 import { SingleCompanyPageSkeleton } from "~/app/_components/companies/single-company/skeleton/single-company-page-skeleton";
 import { api } from "~/trpc/react";
+import { useSession } from "next-auth/react";
+import WaitlistWelcomePage from "~/app/_components/authentication/admin/waitlist-welcome-page";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 interface SingleCompanyPageProps {
   params: {
@@ -15,6 +19,19 @@ export default function SingleCompanyPage({ params }: SingleCompanyPageProps) {
   const { slug } = params;
   const { data: company, isLoading } =
     api.companies.fetchCompanyWithSlug.useQuery({ slug });
+
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  if (session?.user.role === "waitlist") {
+    return <WaitlistWelcomePage />;
+  }
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login");
+    }
+  }, [status, router]);
+
   return (
     <>
       {isLoading ? (

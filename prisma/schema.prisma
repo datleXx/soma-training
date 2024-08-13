@@ -64,6 +64,7 @@ model User {
     accounts      Account[]
     sessions      Session[]
     posts         Post[]
+    role          String    @default("waitlist")
 }
 
 model VerificationToken {
