@@ -8,7 +8,9 @@ const CompaniesPage = () => {
     <div className="flex p-2">
       {/* Left Div */}
       <div className="sticky left-0 top-[66px] h-screen">
-        <VerticalFilterBar />
+        <Suspense>
+          <VerticalFilterBar />
+        </Suspense>
       </div>
 
       {/* Right Div */}
