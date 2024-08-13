@@ -23,11 +23,19 @@ const UserTable = () => {
     await updateUserRole.mutateAsync({ email, role });
   };
 
+  if (users?.length === 0) {
+    return (
+      <div className="p-[60px] w-full flex justify-center items-center">
+        No users in admin/user panel
+      </div>
+    );
+  }
+
   return (
     <Table>
       <TableBody>
         {users?.map((user) => (
-          <TableRow>
+          <TableRow key={user.id}>
             <TableCell>
               <div>
                 <Image

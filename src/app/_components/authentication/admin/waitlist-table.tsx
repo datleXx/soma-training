@@ -22,18 +22,22 @@ const WaitlistTable = () => {
   });
 
   const handleUpdateUserRole = async (email: string, role: string) => {
-    await updateUserRole.mutateAsync({ email, role }
-    );
+    await updateUserRole.mutateAsync({ email, role });
   };
 
-  useEffect(() => {
-    console.log("Waitlist users", users);
-  }, [users]);
+  if (users?.length === 0) {
+    return (
+      <div className="p-[60px] w-full flex justify-center items-center">
+        No users in waitlist
+      </div>
+    );
+  }
+
   return (
     <Table>
       <TableBody>
         {users?.map((user) => (
-          <TableRow>
+          <TableRow key={user.id}>
             <TableCell>
               <div>
                 <Image
@@ -52,7 +56,13 @@ const WaitlistTable = () => {
               <div>{user.name}</div>
             </TableCell>
             <TableCell>
-              <Select placeholder="Select Role" value={user.role} onValueChange={(role) => handleUpdateUserRole(user.email ?? "", role)}>
+              <Select
+                placeholder="Select Role"
+                value={user.role}
+                onValueChange={(role) =>
+                  handleUpdateUserRole(user.email ?? "", role)
+                }
+              >
                 <SelectItem value="admin">Admin</SelectItem>
                 <SelectItem value="user">User</SelectItem>
                 <SelectItem value="waitlist">Waitlist</SelectItem>

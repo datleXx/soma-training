@@ -11,17 +11,17 @@ import WaitlistWelcomePage from "../../authentication/admin/waitlist-welcome-pag
 const CompaniesPage = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
-
-  if (session?.user.role === "waitlist") {
-    return <WaitlistWelcomePage />;
-  }
-
+  
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/login");
     }
   }, [status, router]);
-  
+
+  if (session?.user.role === "waitlist") {
+    return <WaitlistWelcomePage />;
+  }
+
   return (
     <div className="flex p-2">
       {/* Left Div */}
