@@ -12,18 +12,7 @@ import {
 } from "@tremor/react";
 
 const DashboardCompanyList = () => {
-  // const companies = [
-  //   {
-  //     companyImg:
-  //       "https://storage.googleapis.com/pulumi-public-bucket-soma-78c41ee/95bd8ff0a6f17f5f8efacac24921105e79452b9f/Ramp-harmonic-logo",
-  //     companyName: "Ramp",
-  //     companyDescription:
-  //       "Corporate credit card that focuses on helping businesses eliminate overspend",
-  //     companyValuation: "$1.2B",
-  //     companyType: "FinTech",
-  //     companyBase: "US",
-  //   },
-  // ];
+
   const { data: companies, isLoading } = api.companies.fetchTenCompanies.useQuery();
   return (
     <Card className="mt-6 w-full rounded shadow-lg">
@@ -37,6 +26,7 @@ const DashboardCompanyList = () => {
               key={company.id}
               companyImg={company.logoUrl ?? ""}
               companyName={company.name ?? ""}
+              companySlug={company.slug ?? ""}
               companyDescription={company.oneLiner ?? ""}
               companyValuation={company.valuation ?? ""}
               companyType={"Technology"}
