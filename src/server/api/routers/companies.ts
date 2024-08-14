@@ -170,7 +170,7 @@ export const companiesRouter = createTRPCRouter({
           .collections("companies")
           .documents()
           .search({
-            q: input.query || "*",
+            q: input.query ?? "*",
             query_by: "name,oneLiner,region,sectors",
             filter_by: [
               whereClause.region ? `region:${whereClause.region}` : "",
@@ -189,7 +189,7 @@ export const companiesRouter = createTRPCRouter({
           });
 
         const companiesList =
-          searchResults.hits?.map((hit) => hit.document) || [];
+          searchResults.hits?.map((hit) => hit.document) ?? [];
         const nextCursor =
           searchResults.found < 30
             ? undefined

@@ -25,7 +25,6 @@ const CompaniesTable = () => {
   const router = useRouter();
   const sortOrder = searchParams.get("sortOrder") ?? "ascending";
   const query = searchParams.get("query") ?? "";
-
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isLoading } =
     api.companies.fetchCompaniesWithTypesense.useInfiniteQuery(
       { filters: filters, sortOrder: sortOrder, query: query },
@@ -37,10 +36,6 @@ const CompaniesTable = () => {
   const { ref, inView } = useInView({
     threshold: 0.5,
   });
-
-  useEffect(() => {
-    console.log("Data", data);
-  }, [data]);
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {

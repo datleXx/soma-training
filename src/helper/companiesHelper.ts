@@ -116,7 +116,7 @@ export async function fetchBatch(
 }
 
 export function getValuationOrder(valuation: string): number {
-    const valuationOrder: {[key: string]: number} = {
+    const valuationOrder: Record<string, number> = {
         "all": 0,
         "+5b": 1, 
         "1-5b": 2,
@@ -130,7 +130,7 @@ export function getValuationOrder(valuation: string): number {
 }
 
 export function getValuation(order: number): string {
-    const valuationOrder: {[key: number]: string} = {
+    const valuationOrder: Record<number, string> = {
         0: "all",
         1: "+5b",
         2: "1-5b",

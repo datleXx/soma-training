@@ -2,7 +2,7 @@ import { NextResponse, NextRequest } from "next/server";
 import typesenseClient from "~/server/typesenseClient";
 
 export async function GET(req: NextRequest) {
-  const query = req.nextUrl.searchParams.get("query") || "";
+  const query = req.nextUrl.searchParams.get("query") ?? "";
 
   try {
     const searchResults = await typesenseClient
