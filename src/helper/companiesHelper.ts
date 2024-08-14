@@ -44,14 +44,15 @@ export interface CompanyDataType {
 }
 
 export interface CompaniesInfiniteQueryResponse { //use for the infinite query
-  id: string;
-  sectors: SectorType[];
-  name: string;
-  logoUrl: string;
-  slug: string;
-  oneLiner: string;
-  valuation: string;
-  region: string;
+  id?: string;
+  sectors?: string[];
+  name?: string;
+  logoUrl?: string;
+  slug?: string;
+  oneLiner?: string;
+  valuation?: number;
+  region?: string;
+  websiteUrl?: string;
 }
 
 
@@ -114,7 +115,36 @@ export async function fetchBatch(
   }
 }
 
+export function getValuationOrder(valuation: string): number {
+    const valuationOrder: {[key: string]: number} = {
+        "all": 0,
+        "+5b": 1, 
+        "1-5b": 2,
+        "500m-1b": 3,
+        "100-500m": 4,
+        "50-100m": 5,
+        "<50m": 6,
+        "N/A": 7,
+    }
+    return valuationOrder[valuation] ?? 7;
+}
+
+export function getValuation(order: number): string {
+    const valuationOrder: {[key: number]: string} = {
+        0: "all",
+        1: "+5b",
+        2: "1-5b",
+        3: "500m-1b",
+        4: "100-500m",
+        5: "50-100m",
+        6: "<50m",
+        7: "N/A",
+    }
+    return valuationOrder[order] ?? "N/A";
+}
+
 export async function CompaniesUpsert(batches: BatchDataType[]) {
+
   for (const batch of batches) {
     try {
       //Usert cursor i.e. the id of the fetched batch
@@ -136,7 +166,7 @@ export async function CompaniesUpsert(batches: BatchDataType[]) {
             logoUrl: company.logoUrl,
             slug: company.slug,
             oneLiner: company.oneLiner ?? "N/A",
-            valuation: company.valuation ?? "N/A",
+            valuation: company.valuation ? getValuationOrder(company.valuation) : 7,
             region: company.region ? company.region : "N/A",
             websiteUrl: company.website,
             cursorId: batch.cursor ?? "undefined",
@@ -147,7 +177,7 @@ export async function CompaniesUpsert(batches: BatchDataType[]) {
             logoUrl: company.logoUrl,
             slug: company.slug,
             oneLiner: company.oneLiner ?? "N/A",
-            valuation: company.valuation ?? "N/A",
+            valuation: company.valuation ? getValuationOrder(company.valuation) : 7,
             region: company.region ? company.region : "N/A",
             websiteUrl: company.website ?? "N/A",
             cursorId: batch.cursor ?? "undefined",

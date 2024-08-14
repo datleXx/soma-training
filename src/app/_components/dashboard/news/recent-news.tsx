@@ -13,7 +13,7 @@ const RecentNews = () => {
     },
   ];
   return (
-    <Card className="mt-5 rounded p-2 shadow-xl">
+    <Card className="mt-5 rounded-md p-2">
       <h1 className="p-3 text-lg font-medium">Recent news</h1>
       <div className="flex flex-col">
         {Array.from({ length: 3 }).map((_, index) => (
@@ -27,7 +27,7 @@ const RecentNews = () => {
       </div>
       <div className="my-5">
         <div className="mx-auto w-5/6">
-          <Button className="rounded w-full border border-gray-400 bg-white text-gray-500 hover:border-gray-500 hover:bg-gray-200">
+          <Button className="w-full rounded border border-gray-400 bg-white text-gray-500 hover:border-gray-500 hover:bg-gray-200">
             View all
           </Button>
         </div>

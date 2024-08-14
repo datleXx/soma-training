@@ -81,7 +81,7 @@ model Company {
     logoUrl    String?
     slug       String
     oneLiner   String
-    valuation  String
+    valuation  Int
     region     String?
     websiteUrl String
     sectors    Sectors[]

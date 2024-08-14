@@ -1,12 +1,11 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 
-import { env } from "~/env";
-
-const createPrismaClient = () =>
-  new PrismaClient({
-    log:
-      env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
+const createPrismaClient = () => {
+  const logOptions = process.env.NODE_ENV === "development" && typeof window === "undefined" ? ["query", "error", "warn"] : ["error"];
+  return new PrismaClient({
+    log: logOptions as (Prisma.LogLevel | Prisma.LogDefinition)[],
   });
+}
 
 const globalForPrisma = globalThis as unknown as {
   prisma: ReturnType<typeof createPrismaClient> | undefined;
@@ -14,4 +13,4 @@ const globalForPrisma = globalThis as unknown as {
 
 export const db = globalForPrisma.prisma ?? createPrismaClient();
 
-if (env.NODE_ENV !== "production") globalForPrisma.prisma = db;
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = db;

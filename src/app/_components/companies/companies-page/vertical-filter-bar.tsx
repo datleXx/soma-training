@@ -5,7 +5,7 @@ import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 interface Filter {
-  valuation: string;
+  valuation: number;
   industry: string;
   region: string;
 }
@@ -13,7 +13,7 @@ interface Filter {
 const VerticalFilterBar = () => {
   const [showMoreRegions, setShowMoreRegions] = useState(false);
   const [filter, setFilter] = useState<Filter>({
-    valuation: "all",
+    valuation: 0,
     industry: "all",
     region: "all",
   });
@@ -34,7 +34,7 @@ const VerticalFilterBar = () => {
     <div className="hidden p-2 lg:block">
       <Card className="max-w-[200px] rounded xl:max-w-[250px]">
         <div className="relative h-full">
-          <div className="scrollbar-hide h-[400px] overflow-auto lg:h-[600px] xl:h-[800px]">
+          <div className="scrollbar-hide h-[600px] overflow-y-scroll lg:h-[800px] xl:h-[1000px]">
             {/* Valuation */}
             <div className="flex flex-col py-2">
               <h2 className="text-md font-semibold">Valuation</h2>
@@ -42,8 +42,8 @@ const VerticalFilterBar = () => {
                 <input
                   type="checkbox"
                   id="all-valuation"
-                  checked={filter.valuation === "all"}
-                  onChange={(e) => setFilter({ ...filter, valuation: "all" })}
+                  checked={filter.valuation === 0}
+                  onChange={(e) => setFilter({ ...filter, valuation: 0 })}
                   className="accent-indigo-500"
                 />
                 <label htmlFor="all-valuation" className="ml-2">
@@ -55,8 +55,8 @@ const VerticalFilterBar = () => {
                   type="checkbox"
                   id="plus-5b"
                   className="accent-indigo-500"
-                  checked={filter.valuation === "+5b"}
-                  onChange={(e) => setFilter({ ...filter, valuation: "+5b" })}
+                  checked={filter.valuation === 1}
+                  onChange={(e) => setFilter({ ...filter, valuation: 1 })}
                 />
                 <label htmlFor="plus-5b" className="ml-2">
                   +5b
@@ -67,8 +67,8 @@ const VerticalFilterBar = () => {
                   type="checkbox"
                   id="1-5b"
                   className="accent-indigo-500"
-                  checked={filter.valuation === "1-5b"}
-                  onChange={(e) => setFilter({ ...filter, valuation: "1-5b" })}
+                  checked={filter.valuation === 2}
+                  onChange={(e) => setFilter({ ...filter, valuation: 2 })}
                 />
                 <label htmlFor="1-5b" className="ml-2">
                   1-5b
@@ -79,10 +79,8 @@ const VerticalFilterBar = () => {
                   type="checkbox"
                   id="500m-1b"
                   className="accent-indigo-500"
-                  checked={filter.valuation === "500m-1b"}
-                  onChange={(e) =>
-                    setFilter({ ...filter, valuation: "500m-1b" })
-                  }
+                  checked={filter.valuation === 3}
+                  onChange={(e) => setFilter({ ...filter, valuation: 3 })}
                 />
                 <label htmlFor="500m-1b" className="ml-2">
                   500m-1b
@@ -93,10 +91,8 @@ const VerticalFilterBar = () => {
                   type="checkbox"
                   id="100-500m"
                   className="accent-indigo-500"
-                  checked={filter.valuation === "100-500m"}
-                  onChange={(e) =>
-                    setFilter({ ...filter, valuation: "100-500m" })
-                  }
+                  checked={filter.valuation === 4}
+                  onChange={(e) => setFilter({ ...filter, valuation: 4 })}
                 />
                 <label htmlFor="100-500m" className="ml-2">
                   100-500m
@@ -107,10 +103,8 @@ const VerticalFilterBar = () => {
                   type="checkbox"
                   id="50-100m"
                   className="accent-indigo-500"
-                  checked={filter.valuation === "50-100m"}
-                  onChange={(e) =>
-                    setFilter({ ...filter, valuation: "50-100m" })
-                  }
+                  checked={filter.valuation === 5}
+                  onChange={(e) => setFilter({ ...filter, valuation: 5 })}
                 />
                 <label htmlFor="50-100m" className="ml-2">
                   50-100m
@@ -121,8 +115,8 @@ const VerticalFilterBar = () => {
                   type="checkbox"
                   id="less-50m"
                   className="accent-indigo-500"
-                  checked={filter.valuation === "<50m"}
-                  onChange={(e) => setFilter({ ...filter, valuation: "<50m" })}
+                  checked={filter.valuation === 6}
+                  onChange={(e) => setFilter({ ...filter, valuation: 6 })}
                 />
                 <label htmlFor="less-50m" className="ml-2">
                   &lt;50m
@@ -133,8 +127,8 @@ const VerticalFilterBar = () => {
                   type="checkbox"
                   id="na"
                   className="accent-indigo-500"
-                  checked={filter.valuation === "N/A"}
-                  onChange={(e) => setFilter({ ...filter, valuation: "N/A" })}
+                  checked={filter.valuation === 7}
+                  onChange={(e) => setFilter({ ...filter, valuation: 7 })}
                 />
                 <label htmlFor="na" className="ml-2">
                   N/A
@@ -509,7 +503,7 @@ const VerticalFilterBar = () => {
               )}
               <div
                 onClick={() => setShowMoreRegions(!showMoreRegions)}
-                className="mt-2 cursor-pointer text-sm text-indigo-500 underline"
+                className="my-2 cursor-pointer p-2 text-sm text-indigo-500 underline"
               >
                 {!showMoreRegions ? "Show more" : "Show less"}
               </div>

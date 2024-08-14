@@ -4,7 +4,6 @@ import {
   fetchBatch,
   decodeURL,
   CompaniesUpsert,
-  type CompanyDataType,
   type BatchDataType,
 } from "~/helper/companiesHelper"; // eslint-disable-line
 
@@ -16,6 +15,7 @@ export async function GET(req: NextRequest) {
     const localStorage: BatchDataType[] = [];
     const data = await fetchBatch("", localStorage, decodedURL); // eslint-disable-line
     await CompaniesUpsert(data);
+
     return NextResponse.json("Fetched Companies Data Successfully"); // eslint-disable-line
   } catch (error) {
     console.log("Error", error);

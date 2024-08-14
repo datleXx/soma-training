@@ -17,15 +17,18 @@ import { useInView } from "react-intersection-observer";
 import { useSearchParams } from "next/navigation";
 import { CompanyDataType } from "~/helper/companiesHelper";
 import { useRouter } from "next/navigation";
+import { getValuation } from "~/helper/companiesHelper";
 
 const CompaniesTable = () => {
   const searchParams = useSearchParams();
   const filters = JSON.parse(searchParams.get("filters") ?? "{}");
   const router = useRouter();
+  const sortOrder = searchParams.get("sortOrder") ?? "ascending";
+  const query = searchParams.get("query") ?? "";
 
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isLoading } =
-    api.companies.fetchCompaniesWithCursor.useInfiniteQuery(
-      { filters: filters },
+    api.companies.fetchCompaniesWithTypesense.useInfiniteQuery(
+      { filters: filters, sortOrder: sortOrder, query: query },
       {
         getNextPageParam: (lastPage) => lastPage?.nextCursor,
       },
@@ -64,7 +67,11 @@ const CompaniesTable = () => {
             {data?.pages
               ?.flatMap((page) => page?.companiesList)
               .map((company) => (
-                <TableRow onClick={() => router.push(`/companies/${company?.slug}`)} key={company?.id} className="cursor-pointer hover:bg-gray-100">
+                <TableRow
+                  onClick={() => router.push(`/companies/${company?.slug}`)}
+                  key={company?.id}
+                  className="cursor-pointer hover:bg-gray-100"
+                >
                   <TableCell>
                     <div className="flex items-center space-x-4">
                       <Image
@@ -85,9 +92,9 @@ const CompaniesTable = () => {
                   </TableCell>
                   <TableCell>{company?.region}</TableCell>
                   <TableCell>
-                    {company?.sectors?.map((sector) => sector?.name).join(", ")}
+                    {company?.sectors?.map((sector) => sector).join(", ")}
                   </TableCell>
-                  <TableCell>{company?.valuation}</TableCell>
+                  <TableCell>{getValuation(company?.valuation ?? 7)}</TableCell>
                 </TableRow>
               ))}
           </TableBody>

@@ -11,7 +11,7 @@ import WaitlistWelcomePage from "../../authentication/admin/waitlist-welcome-pag
 const CompaniesPage = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
-  
+
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/login");

@@ -10,12 +10,13 @@ import {
   TableHead,
   TableHeaderCell,
 } from "@tremor/react";
+import { getValuation } from "~/helper/companiesHelper";
 
 const DashboardCompanyList = () => {
 
   const { data: companies, isLoading } = api.companies.fetchTenCompanies.useQuery();
   return (
-    <Card className="mt-6 w-full rounded shadow-lg">
+    <Card className="mt-6 w-full rounded-md">
       <h1 className="p-5 text-xl font-medium">Soma Top Unicorn Breakouts</h1>
 
       <Table className="min-w-full">
@@ -28,7 +29,7 @@ const DashboardCompanyList = () => {
               companyName={company.name ?? ""}
               companySlug={company.slug ?? ""}
               companyDescription={company.oneLiner ?? ""}
-              companyValuation={company.valuation ?? ""}
+              companyValuation={getValuation(company.valuation ?? 7)}
               companyType={"Technology"}
               companyBase={company.region ?? ""}
             />

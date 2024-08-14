@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 const UserInfoCard = () => {
   const { data: sessionData } = useSession();
   return (
-    <Card className="mt-5 rounded shadow-lg">
+    <Card className="mt-5 rounded-md">
       <div className="flex flex-col">
         <div className="flex items-center justify-between gap-5 border-b border-gray-200 p-4 pb-5">
           <div className="flex items-center gap-5">

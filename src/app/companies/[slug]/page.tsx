@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react";
 import WaitlistWelcomePage from "~/app/_components/authentication/admin/waitlist-welcome-page";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { getValuation } from "~/helper/companiesHelper";
 
 interface SingleCompanyPageProps {
   params: {
@@ -22,7 +23,7 @@ export default function SingleCompanyPage({ params }: SingleCompanyPageProps) {
 
   const { data: session, status } = useSession();
   const router = useRouter();
-  
+
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/login");
@@ -60,7 +61,7 @@ export default function SingleCompanyPage({ params }: SingleCompanyPageProps) {
                   .map((sector) => (sector.primary ? "" : sector.name))
                   .join(", ") ?? ""
               }
-              valuation={company?.valuation ?? ""}
+              valuation={getValuation(company?.valuation ?? 7)}
             />
           </div>
         </div>
