@@ -87,6 +87,7 @@ model Company {
     sectors    Sectors[]
     cursorId   String
     cursor     Cursor @relation(fields: [cursorId], references: [id], onDelete: Cascade)
+    news News[]
 }
 
 model Sectors {
@@ -101,4 +102,13 @@ model Cursor {
     id String @id @default(cuid())
     companies Company[]
     nextCursor String?
+}
+
+model News {
+    id String @id @default(cuid())
+    title String
+    url String @unique
+    publishedAt String?
+    companyId String
+    company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
 }
