@@ -103,9 +103,7 @@ export async function extractLinksFromHtml(htmlContent: string) {
   const links: string[] = [];
   $("body a").each((i, el) => {
     const href = $(el).attr("href");
-    if (href && href.startsWith("https:")) {
-      links.push(href);
-    }
+    href && href.startsWith("https:") && links.push(href);
   });
   return links;
 }
