@@ -6,13 +6,11 @@ import { Card, Divider, TextInput, Button } from "@tremor/react";
 import { RiGoogleFill } from "react-icons/ri";
 import { z } from "zod";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<{ email?: string; password?: string }>({});
-  const router = useRouter();
 
   const signInSchema = z.object({
     email: z.string().email("Please enter a valid email address"),
@@ -63,7 +61,7 @@ const SignInPage = () => {
                 name="email"
                 type="email"
                 autoComplete="email"
-                required
+                required={false}
                 className="relative block w-full rounded-t-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -79,7 +77,7 @@ const SignInPage = () => {
                 name="password"
                 type="password"
                 autoComplete="current-password"
-                required
+                required={false}
                 className="relative block w-full rounded-b-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -93,7 +91,7 @@ const SignInPage = () => {
           <div>
             <Button
               onClick={() => handleSignIn}
-              type="submit"
+              type="button"
               className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
               Log in
@@ -103,7 +101,7 @@ const SignInPage = () => {
           <div>
             <Button
               onClick={googleSignIn}
-              type="submit"
+              type="button"
               icon={RiGoogleFill}
               className="w-full border-none bg-[#4285F4] hover:bg-[#4285F4]/90 focus:outline-none focus:ring-4 focus:ring-[#4285F4]/50"
             >

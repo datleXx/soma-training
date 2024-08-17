@@ -27,7 +27,7 @@ const WaitlistTable = () => {
 
   if (users?.length === 0) {
     return (
-      <div className="p-[60px] w-full flex justify-center items-center">
+      <div className="flex w-full items-center justify-center p-[60px]">
         No users in waitlist
       </div>
     );
@@ -62,6 +62,7 @@ const WaitlistTable = () => {
                 onValueChange={(role) =>
                   handleUpdateUserRole(user.email ?? "", role)
                 }
+                className=""
               >
                 <SelectItem value="admin">Admin</SelectItem>
                 <SelectItem value="user">User</SelectItem>

@@ -25,7 +25,7 @@ const UserTable = () => {
 
   if (users?.length === 0) {
     return (
-      <div className="p-[60px] w-full flex justify-center items-center">
+      <div className="flex w-full items-center justify-center p-[60px]">
         No users in admin/user panel
       </div>
     );
@@ -53,13 +53,14 @@ const UserTable = () => {
             <TableCell>
               <div>{user.name}</div>
             </TableCell>
-            <TableCell className="">
+            <TableCell>
               <Select
                 placeholder="Select Role"
                 value={user.role}
                 onValueChange={(role) =>
                   handleUpdateUserRole(user.email ?? "", role)
                 }
+                className="w-fit"
               >
                 <SelectItem value="admin">Admin</SelectItem>
                 <SelectItem value="user">User</SelectItem>

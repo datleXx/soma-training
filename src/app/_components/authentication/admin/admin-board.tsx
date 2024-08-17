@@ -14,7 +14,7 @@ import WaitlistTable from "./waitlist-table";
 
 const AdminBoard = () => {
   return (
-    <Card className="my-6 w-full rounded shadow-lg">
+    <Card className="my-6 w-full h-[calc(100vh-12rem)] rounded shadow-lg">
       <h1 className="text-lg font-medium">Admin Board</h1>
       <TabGroup className="mt-4">
         <TabList>
