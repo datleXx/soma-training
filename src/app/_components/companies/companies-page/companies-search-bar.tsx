@@ -16,22 +16,22 @@ const CompaniesSearchBar = () => {
   }, [search, router, sortOrder]);
 
   return (
-    <Card className="flex items-center gap-4 rounded bg-gray-50 p-4">
+    <Card className="bg-gray-1s00 flex items-center gap-x-2 rounded">
       <TextInput
         placeholder="Search for companies"
-        className="h-9 w-3/4 rounded text-sm"
+        className="rounded text-sm"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
       <Select
         defaultValue="descending"
-        className="h-9 w-1/4 rounded text-sm"
+        className="w-fit rounded text-sm"
         onValueChange={(value) => setSortOrder(value)}
       >
-        <SelectItem className="h-9 rounded" value="ascending">
+        <SelectItem className="rounded" value="ascending">
           Ascending
         </SelectItem>
-        <SelectItem className="h-9 rounded" value="descending">
+        <SelectItem className="rounded" value="descending">
           Descending
         </SelectItem>
       </Select>

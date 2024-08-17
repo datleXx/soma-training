@@ -30,7 +30,7 @@ export default function Header() {
   }, [session, status]);
 
   return (
-    <header className="fixed left-28 right-0 top-0 z-50 flex items-center justify-between px-4 py-3 text-white">
+    <header className="fixed left-28 right-0 top-0 z-50 flex items-center justify-between bg-white px-4 py-3">
       <div className="mx-auto w-2/3">
         <TextInput
           className="w-full rounded-xl text-black"
@@ -43,7 +43,7 @@ export default function Header() {
           color="lightgreen"
           className="cursor-pointer"
         />
-        <button className="flex items-center rounded-xl bg-violet-500 px-4 py-2 text-sm hover:bg-violet-600">
+        <button className="flex items-center rounded-xl bg-violet-500 px-4 py-2 text-sm text-white hover:bg-violet-600">
           Share News
         </button>
         <Popover>

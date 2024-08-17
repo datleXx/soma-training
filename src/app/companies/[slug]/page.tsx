@@ -45,7 +45,7 @@ export default function SingleCompanyPage({ params }: SingleCompanyPageProps) {
             slug={company?.slug ?? ""}
             name={company?.name ?? ""}
           />
-          <div className="mt-6">
+          <div className="mt-5 w-full">
             <SingleCompanyContentSection
               about={company?.oneLiner ?? ""}
               oneLiner={company?.oneLiner ?? ""}

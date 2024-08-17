@@ -28,7 +28,7 @@ const Homepage = () => {
         <AdvertiseBand />
         <DashboardContent />
       </div>
-      <div className="mx-auto my-6 max-w-7xl">
+      <div className="mx-auto my-6">
         <FooterHomepage />
       </div>
     </div>

@@ -44,7 +44,7 @@ const CompaniesTable = () => {
   }, [inView, hasNextPage, fetchNextPage, isFetchingNextPage]);
 
   return (
-    <Card className="mt-6 overflow-auto rounded shadow-lg">
+    <Card className="overflow-y-auto rounded shadow-lg scrollbar-hide">
       <Table>
         <TableHead>
           <TableRow>
@@ -86,7 +86,7 @@ const CompaniesTable = () => {
                     </div>
                   </TableCell>
                   <TableCell>{company?.region}</TableCell>
-                  <TableCell>
+                  <TableCell className="whitespace-normal">
                     {company?.sectors?.map((sector) => sector).join(", ")}
                   </TableCell>
                   <TableCell>{getValuation(company?.valuation ?? 7)}</TableCell>

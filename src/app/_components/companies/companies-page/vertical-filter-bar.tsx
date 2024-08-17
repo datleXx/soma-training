@@ -31,10 +31,10 @@ const VerticalFilterBar = () => {
   }, [filter, pathname, router, searchParams]);
 
   return (
-    <div className="hidden p-2 lg:block">
-      <Card className="max-w-[200px] rounded xl:max-w-[250px]">
+    <div className="hidden h-full p-2 lg:block">
+      <Card className="h-full w-full max-w-[200px] overflow-hidden rounded xl:max-w-[250px]">
         <div className="relative h-full">
-          <div className="scrollbar-hide h-[600px] overflow-y-scroll lg:h-[800px] xl:h-[1000px]">
+          <div className="h-[400px] overflow-y-auto scrollbar-hide lg:h-[600px] xl:h-[700px] 2xl:h-[800px]">
             {/* Valuation */}
             <div className="flex flex-col py-2">
               <h2 className="text-md font-semibold">Valuation</h2>

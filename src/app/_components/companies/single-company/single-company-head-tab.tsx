@@ -5,10 +5,13 @@ interface SingleCompanyHeadTabProps {
   logoUrl: string;
   slug: string;
   name: string;
-
 }
 
-const SingleCompanyHeadTab = ({ logoUrl, slug, name }: SingleCompanyHeadTabProps) => {
+const SingleCompanyHeadTab = ({
+  logoUrl,
+  slug,
+  name,
+}: SingleCompanyHeadTabProps) => {
   return (
     <div className="relative px-4 sm:px-6 lg:px-8">
       <div className="py-6 md:flex md:items-center md:justify-between md:space-x-5">
@@ -19,6 +22,7 @@ const SingleCompanyHeadTab = ({ logoUrl, slug, name }: SingleCompanyHeadTabProps
               alt={slug}
               width={100}
               height={100}
+              className="rounded-md"
             />
           </div>
           <div className="my-auto flex flex-col gap-y-2">
@@ -31,8 +35,12 @@ const SingleCompanyHeadTab = ({ logoUrl, slug, name }: SingleCompanyHeadTabProps
           </div>
         </div>
         <div className="mt-6 flex space-x-3 md:mt-0">
-          <Button className="bg-white text-red-400 border-red-400 hover:bg-red-50 hover:text-red-400 hover:border-red-400 cursor-pointer">Favorite</Button>
-          <Button className="bg-white text-blue-400 border-blue-400 hover:bg-blue-50 hover:text-blue-400 hover:border-blue-400 cursor-pointer">Request intro</Button>
+          <Button className="cursor-pointer border-red-400 bg-white text-red-400 hover:border-red-400 hover:bg-red-50 hover:text-red-400">
+            Favorite
+          </Button>
+          <Button className="cursor-pointer border-blue-400 bg-white text-blue-400 hover:border-blue-400 hover:bg-blue-50 hover:text-blue-400">
+            Request intro
+          </Button>
         </div>
       </div>
     </div>

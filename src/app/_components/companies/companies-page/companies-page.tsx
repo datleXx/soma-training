@@ -23,19 +23,13 @@ const CompaniesPage = () => {
   }
 
   return (
-    <div className="flex p-2">
+    <div className="relative flex h-[calc(100vh-65px)] w-[calc(100vw-7rem)] items-stretch justify-center bg-gray-50 p-2">
       {/* Left Div */}
-      <div className="sticky left-0 top-[66px] h-screen">
-        <Suspense>
-          <VerticalFilterBar />
-        </Suspense>
-      </div>
+      <VerticalFilterBar />
 
       {/* Right Div */}
-      <div className="h-full w-4/5 overflow-auto p-2">
-        <Suspense>
-          <CompaniesSearchBar />
-        </Suspense>
+      <div className="flex h-full flex-col gap-y-4 overflow-hidden p-2 lg:w-full">
+        <CompaniesSearchBar />
         <CompaniesTable />
       </div>
     </div>

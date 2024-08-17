@@ -23,9 +23,9 @@ export default function RootLayout({
           <ClientWrapper>
             <div className="flex">
               <VerticalSideBar />
-              <div className="flex-1">
+              <div className="">
                 <Header />
-                <main className="ml-28 mt-[66px]">
+                <main className="ml-28 mt-[65px]">
                   <NextUIProvider>{children}</NextUIProvider>
                 </main>
               </div>
