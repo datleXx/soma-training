@@ -1,9 +1,14 @@
 import Image from "next/image";
 import { Button, Card } from "@tremor/react";
 import { useSession } from "next-auth/react";
+import UserInfoSkeleton from "./skeleton/user-info-skeleton";
 
 const UserInfoCard = () => {
-  const { data: sessionData } = useSession();
+  const { data: sessionData, status } = useSession();
+
+  if (status === "loading") {
+    return <UserInfoSkeleton />;
+  }
   return (
     <Card className="mt-5 rounded-md">
       <div className="flex flex-col">
